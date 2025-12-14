@@ -1,12 +1,34 @@
 <?php
 $autoload = __DIR__ . '/../vendor/autoload.php';
-if (!file_exists($autoload)) {
-    http_response_code(500);
-    echo 'Faltan dependencias. Ejecuta "composer install" en la raíz del proyecto y vuelve a intentar.';
-    exit;
-}
+if (file_exists($autoload)) {
+    require $autoload;
+} else {
+    spl_autoload_register(function (string $class): void {
+        $basePath = dirname(__DIR__);
 
-require $autoload;
+        if (strpos($class, 'App\\') === 0) {
+            $path = $basePath . '/' . str_replace('\\', '/', $class) . '.php';
+            if (file_exists($path)) {
+                require $path;
+            }
+            return;
+        }
+
+        if (strpos($class, 'Dotenv\\') === 0) {
+            require_once $basePath . '/app/support/FallbackDotenv.php';
+            return;
+        }
+
+        if (strpos($class, 'PHPMailer\\PHPMailer\\') === 0) {
+            require_once $basePath . '/app/support/FallbackPHPMailer.php';
+        }
+    });
+
+    require_once __DIR__ . '/../app/helpers/rut_helper.php';
+    require_once __DIR__ . '/../app/helpers/view_helper.php';
+    require_once __DIR__ . '/../app/helpers/date_helper.php';
+    require_once __DIR__ . '/../app/helpers/money_helper.php';
+}
 
 use App\Core\Config;
 use App\Core\Router;
