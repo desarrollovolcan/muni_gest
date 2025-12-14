@@ -1,0 +1,9 @@
+/vendor/
+/storage/uploads/
+.idea/
+.DS_Store
+/node_modules/
+tema/node_modules/
+tema/.yarn/
+tema/.yarnrc.yml
+.env
