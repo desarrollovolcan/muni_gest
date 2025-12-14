@@ -5,6 +5,7 @@ use App\Core\Config;
 use App\Core\Router;
 use App\Controllers\AuthController;
 use App\Controllers\DashboardController;
+use App\Controllers\HomeController;
 use App\Controllers\PortalAuthController;
 use App\Controllers\PortalDashboardController;
 use App\Controllers\PortalBeneficiosController;
@@ -20,10 +21,9 @@ $router->get('/logout', fn() => $authController->logout());
 
 $dashboard = new DashboardController();
 $router->get('/dashboard', fn() => $dashboard->index());
-$router->get('/', function () {
-    header('Location: /login');
-    exit;
-});
+
+$home = new HomeController();
+$router->get('/', fn() => $home->index());
 
 $portalAuth = new PortalAuthController();
 $router->get('/portal/login', fn() => $portalAuth->loginForm());
