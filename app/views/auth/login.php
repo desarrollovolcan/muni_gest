@@ -1,23 +1,54 @@
 <div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body p-4">
-                <h4 class="text-center">Intranet Municipal</h4>
-                <?php include __DIR__ . '/../partials/flash.php'; ?>
-                <form method="post" action="/login">
-                    <?php include __DIR__ . '/../partials/csrf_field.php'; ?>
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" required>
+    <div class="col-xl-10 col-xxl-8">
+        <div class="card overflow-hidden border-0 shadow-lg">
+            <div class="row g-0 align-items-stretch">
+                <div class="col-lg-5 bg-primary bg-gradient text-white d-none d-lg-flex flex-column justify-content-center p-5">
+                    <div class="mb-4">
+                        <span class="badge bg-light text-primary rounded-pill px-3 py-2">Acceso municipal</span>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password" name="password" class="form-control" required>
+                    <h3 class="fw-semibold mb-3">Intranet Municipal</h3>
+                    <p class="mb-4 text-white-50">Ingresa para gestionar beneficiarios, requisitos y entregas con la nueva interfaz visual del tema.</p>
+                    <ul class="list-unstyled mb-0 text-white-50">
+                        <li class="d-flex align-items-center mb-2"><i class="bx bx-check-circle me-2"></i>Panel y reportes centralizados</li>
+                        <li class="d-flex align-items-center mb-2"><i class="bx bx-check-circle me-2"></i>Seguimiento y trazabilidad</li>
+                        <li class="d-flex align-items-center"><i class="bx bx-check-circle me-2"></i>Seguridad reforzada con registro de accesos</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7">
+                    <div class="card-body p-4 p-lg-5">
+                        <div class="text-center mb-4">
+                            <div class="avatar-lg bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
+                                <i class="bx bxs-key fs-2"></i>
+                            </div>
+                            <h4 class="fw-semibold mb-1">Bienvenido</h4>
+                            <p class="text-muted mb-0">Usa tus credenciales institucionales para continuar</p>
+                        </div>
+                        <?php include __DIR__ . '/../partials/flash.php'; ?>
+                        <form method="post" action="/login" class="mt-3">
+                            <?php include __DIR__ . '/../partials/csrf_field.php'; ?>
+                            <div class="mb-3">
+                                <label class="form-label" for="email">Email</label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light"><i class="bx bx-envelope"></i></span>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="usuario@municipio.cl" required>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <label class="form-label mb-0" for="password">Contraseña</label>
+                                    <small class="text-muted">Solo personal autorizado</small>
+                                </div>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light"><i class="bx bx-lock-alt"></i></span>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-lg" type="submit">Ingresar al panel</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="d-grid">
-                        <button class="btn btn-primary" type="submit">Ingresar</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
