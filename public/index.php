@@ -1,5 +1,12 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
+$autoload = __DIR__ . '/../vendor/autoload.php';
+if (!file_exists($autoload)) {
+    http_response_code(500);
+    echo 'Faltan dependencias. Ejecuta "composer install" en la raíz del proyecto y vuelve a intentar.';
+    exit;
+}
+
+require $autoload;
 
 use App\Core\Config;
 use App\Core\Router;
