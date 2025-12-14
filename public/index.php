@@ -1,5 +1,34 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
+$autoload = __DIR__ . '/../vendor/autoload.php';
+if (file_exists($autoload)) {
+    require $autoload;
+} else {
+    spl_autoload_register(function (string $class): void {
+        $basePath = dirname(__DIR__);
+
+        if (strpos($class, 'App\\') === 0) {
+            $path = $basePath . '/' . str_replace('\\', '/', $class) . '.php';
+            if (file_exists($path)) {
+                require $path;
+            }
+            return;
+        }
+
+        if (strpos($class, 'Dotenv\\') === 0) {
+            require_once $basePath . '/app/support/FallbackDotenv.php';
+            return;
+        }
+
+        if (strpos($class, 'PHPMailer\\PHPMailer\\') === 0) {
+            require_once $basePath . '/app/support/FallbackPHPMailer.php';
+        }
+    });
+
+    require_once __DIR__ . '/../app/helpers/rut_helper.php';
+    require_once __DIR__ . '/../app/helpers/view_helper.php';
+    require_once __DIR__ . '/../app/helpers/date_helper.php';
+    require_once __DIR__ . '/../app/helpers/money_helper.php';
+}
 
 use App\Core\Config;
 use App\Core\Router;
@@ -23,7 +52,8 @@ $dashboard = new DashboardController();
 $router->get('/dashboard', fn() => $dashboard->index());
 
 $home = new HomeController();
-$router->get('/', fn() => $home->index());
+$router->get('/inicio', fn() => $home->index());
+$router->get('/', fn() => $authController->loginForm());
 
 $portalAuth = new PortalAuthController();
 $router->get('/portal/login', fn() => $portalAuth->loginForm());
