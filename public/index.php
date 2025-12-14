@@ -20,7 +20,10 @@ $router->get('/logout', fn() => $authController->logout());
 
 $dashboard = new DashboardController();
 $router->get('/dashboard', fn() => $dashboard->index());
-$router->get('/', fn() => $dashboard->index());
+$router->get('/', function () {
+    header('Location: /login');
+    exit;
+});
 
 $portalAuth = new PortalAuthController();
 $router->get('/portal/login', fn() => $portalAuth->loginForm());
