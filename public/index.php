@@ -23,7 +23,8 @@ $dashboard = new DashboardController();
 $router->get('/dashboard', fn() => $dashboard->index());
 
 $home = new HomeController();
-$router->get('/', fn() => $home->index());
+$router->get('/inicio', fn() => $home->index());
+$router->get('/', fn() => $authController->loginForm());
 
 $portalAuth = new PortalAuthController();
 $router->get('/portal/login', fn() => $portalAuth->loginForm());
