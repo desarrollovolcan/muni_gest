@@ -65,9 +65,8 @@ $router->get('/portal', fn() => $portalDash->index());
 
 $portalBeneficios = new PortalBeneficiosController();
 $router->get('/portal/beneficios', fn() => $portalBeneficios->index());
-$router->get('/portal/beneficios/{id}', function() use ($portalBeneficios) {
-    $id = intval(basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
-    $portalBeneficios->show($id);
+$router->get('/portal/beneficios/{id}', function ($id) use ($portalBeneficios) {
+    $portalBeneficios->show((int) $id);
 });
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
